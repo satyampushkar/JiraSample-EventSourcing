@@ -3,6 +3,13 @@ Learn &amp; understand EventSourcing by creating a simple Jira like demo applica
 
 ToDo List:
 * How to run Guide
-* Add Authentication
-* Improve Exception Handling
-* Improve Validation logic
+* Add
+  * Authentication
+  * Mapping(Mapster)
+  * Db Migration & seeding logic
+  * Unit tests
+* Improve
+  * Exception Handling
+  * Validation logic
+* Fix
+  * Parent - Child(ren) Mapping
