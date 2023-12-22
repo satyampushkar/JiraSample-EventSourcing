@@ -13,3 +13,4 @@ ToDo List:
   * Validation logic
 * Fix
   * Parent - Child(ren) Mapping
+  * option-config in respective dependency classes
