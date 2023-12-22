@@ -1,8 +1,10 @@
 # JiraSample-EventSourcing
 Learn &amp; understand EventSourcing by creating a simple Jira like demo application
 
+--------------------------------------------------
 ToDo List:
 * How to run Guide
+* Add a frontend ui for demo purpose 
 * Add
   * Authentication
   * Mapping(Mapster)
