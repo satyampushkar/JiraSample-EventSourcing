@@ -1,0 +1,6 @@
+@JiraSample.Api_HostAddress = http://localhost:5003
+
+GET {{JiraSample.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
