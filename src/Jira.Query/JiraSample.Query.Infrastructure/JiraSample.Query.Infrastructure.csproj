@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JiraSample.Common\JiraSample.Common.csproj" />
+    <ProjectReference Include="..\..\Jira.Common\JiraSample.Common\JiraSample.Common.csproj" />
     <ProjectReference Include="..\JiraSample.Query.Application\JiraSample.Query.Application.csproj" />
   </ItemGroup>
 

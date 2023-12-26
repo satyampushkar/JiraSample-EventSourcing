@@ -3,32 +3,36 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Domain", "JiraSample.Domain\JiraSample.Command.Domain.csproj", "{11990264-287E-4CF4-A0FC-36482E5F2061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Domain", "src\Jira.Command\JiraSample.Command.Domain\JiraSample.Command.Domain.csproj", "{11990264-287E-4CF4-A0FC-36482E5F2061}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Application", "JiraSample.Application\JiraSample.Command.Application.csproj", "{59CE403C-F9A9-4699-80FF-2FD5D29C980B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Application", "src\Jira.Command\JiraSample.Command.Application\JiraSample.Command.Application.csproj", "{59CE403C-F9A9-4699-80FF-2FD5D29C980B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Infrastructure", "JiraSample.Infrastructure\JiraSample.Command.Infrastructure.csproj", "{082509E5-DD88-4A88-9B8A-321291D2C6C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Infrastructure", "src\Jira.Command\JiraSample.Command.Infrastructure\JiraSample.Command.Infrastructure.csproj", "{082509E5-DD88-4A88-9B8A-321291D2C6C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Common", "JiraSample.Common\JiraSample.Common.csproj", "{8C009099-7DD7-440B-A97B-CB5449BE4284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Common", "src\Jira.Common\JiraSample.Common\JiraSample.Common.csproj", "{8C009099-7DD7-440B-A97B-CB5449BE4284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Command.Api", "JiraSample.Api\JiraSample.Command.Api.csproj", "{8A2EBAFB-A6C2-4C8E-BE18-EA86C96E744D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Command.Api", "src\Jira.Command\JiraSample.Command.Api\JiraSample.Command.Api.csproj", "{8A2EBAFB-A6C2-4C8E-BE18-EA86C96E744D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{A84DBFF6-D178-4D9F-BA1D-945818193EBF}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JiraSample.Command", "JiraSample.Command", "{9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jira.Command", "Jira.Command", "{9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JiraSample.Query", "JiraSample.Query", "{59717D67-AA58-4236-9415-65B1EB463B7E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jira.Query", "Jira.Query", "{59717D67-AA58-4236-9415-65B1EB463B7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Query.Domain", "JiraSample.Query.Domain\JiraSample.Query.Domain.csproj", "{E7EC7D98-FD05-4BB7-B418-DCE437BCA5A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Query.Domain", "src\Jira.Query\JiraSample.Query.Domain\JiraSample.Query.Domain.csproj", "{E7EC7D98-FD05-4BB7-B418-DCE437BCA5A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Query.Application", "JiraSample.Query.Application\JiraSample.Query.Application.csproj", "{7B497FDB-F3C3-4CC3-90D5-EC03ED555953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Query.Application", "src\Jira.Query\JiraSample.Query.Application\JiraSample.Query.Application.csproj", "{7B497FDB-F3C3-4CC3-90D5-EC03ED555953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Query.Infrastructure", "JiraSample.Query.Infrastructure\JiraSample.Query.Infrastructure.csproj", "{0314EABB-08B2-4EC6-8292-60F469C3631C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Query.Infrastructure", "src\Jira.Query\JiraSample.Query.Infrastructure\JiraSample.Query.Infrastructure.csproj", "{0314EABB-08B2-4EC6-8292-60F469C3631C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Query.Api", "JiraSample.Query.Api\JiraSample.Query.Api.csproj", "{91C8248D-FD2E-4FC8-85D7-712C20D08109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Query.Api", "src\Jira.Query\JiraSample.Query.Api\JiraSample.Query.Api.csproj", "{91C8248D-FD2E-4FC8-85D7-712C20D08109}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{97015664-DDCD-465E-9D62-7B861919EA2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Jira.Common", "Jira.Common", "{4D2B9579-B3BC-4AAF-89C7-B1866DF666C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,11 +84,15 @@ Global
 		{11990264-287E-4CF4-A0FC-36482E5F2061} = {9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}
 		{59CE403C-F9A9-4699-80FF-2FD5D29C980B} = {9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}
 		{082509E5-DD88-4A88-9B8A-321291D2C6C6} = {9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}
+		{8C009099-7DD7-440B-A97B-CB5449BE4284} = {4D2B9579-B3BC-4AAF-89C7-B1866DF666C9}
 		{8A2EBAFB-A6C2-4C8E-BE18-EA86C96E744D} = {9DAD4F46-A441-4B69-8A89-1DF5C907BBE0}
+		{9DAD4F46-A441-4B69-8A89-1DF5C907BBE0} = {97015664-DDCD-465E-9D62-7B861919EA2C}
+		{59717D67-AA58-4236-9415-65B1EB463B7E} = {97015664-DDCD-465E-9D62-7B861919EA2C}
 		{E7EC7D98-FD05-4BB7-B418-DCE437BCA5A1} = {59717D67-AA58-4236-9415-65B1EB463B7E}
 		{7B497FDB-F3C3-4CC3-90D5-EC03ED555953} = {59717D67-AA58-4236-9415-65B1EB463B7E}
 		{0314EABB-08B2-4EC6-8292-60F469C3631C} = {59717D67-AA58-4236-9415-65B1EB463B7E}
 		{91C8248D-FD2E-4FC8-85D7-712C20D08109} = {59717D67-AA58-4236-9415-65B1EB463B7E}
+		{4D2B9579-B3BC-4AAF-89C7-B1866DF666C9} = {97015664-DDCD-465E-9D62-7B861919EA2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F1CCF7E-DAC3-4492-B392-965EEEF7A2A8}

@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JiraSample.Application\JiraSample.Command.Application.csproj" />
-    <ProjectReference Include="..\JiraSample.Infrastructure\JiraSample.Command.Infrastructure.csproj" />
+    <ProjectReference Include="..\JiraSample.Command.Application\JiraSample.Command.Application.csproj" />
+    <ProjectReference Include="..\JiraSample.Command.Infrastructure\JiraSample.Command.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
