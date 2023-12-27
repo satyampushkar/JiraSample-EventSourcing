@@ -28,7 +28,7 @@ public class EventHandler : IEventHandler
             Author = @event.Author,
             Asignee = @event.Asignee ?? string.Empty,
             ParentId = @event.ParentId ?? Guid.Empty,
-            Status = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
+            ItemStatus = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
             CreatedDateTime = @event.CreatedDateTime,
             UpdatedDateTime = @event.CreatedDateTime,
         };
@@ -47,7 +47,7 @@ public class EventHandler : IEventHandler
             ItemType = (JiraItemType)Enum.Parse(typeof(JiraItemType), @event.ItemType.Name),
             Asignee = @event.Asignee,
             ParentId = @event.ParentId,
-            Status = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
+            ItemStatus = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
             UpdatedDateTime = @event.UpdatedDateTime,
         };
         await _jiraItemRepository.UpdateAsync(jiraItemEntity);
@@ -125,7 +125,7 @@ public class EventHandler : IEventHandler
         JiraItemEntity jiraItemEntity = new()
         {
             Id = @event.Id,
-            Status = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
+            ItemStatus = (JiraItemStatus)Enum.Parse(typeof(JiraItemStatus), @event.Status.Name),
             UpdatedDateTime = @event.UpdatedDateTime,
         };
         await _jiraItemRepository.UpdateAsync(jiraItemEntity);

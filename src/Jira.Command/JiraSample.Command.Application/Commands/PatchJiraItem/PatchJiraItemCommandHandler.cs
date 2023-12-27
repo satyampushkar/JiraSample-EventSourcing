@@ -41,7 +41,7 @@ public class PatchJiraItemCommandHandler : IRequestHandler<PatchJiraItemCommand,
             {
                 aggregate.UpdateJiraItemType(JiraItemType.FromName(operation.value.ToString()));
             }
-            else if (operation.path.Equals(nameof(aggregate.Status), StringComparison.CurrentCultureIgnoreCase))
+            else if (operation.path.Equals(nameof(aggregate.ItemStatus), StringComparison.CurrentCultureIgnoreCase))
             {
                 aggregate.UpdateJiraItemStatus(JiraItemStatus.FromName(operation.value.ToString()));
             }

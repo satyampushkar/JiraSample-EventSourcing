@@ -5,6 +5,7 @@ public record GetJiraItemHistoryResponse(List<JiraItemHistoryResponse> JiraItemH
 public record JiraItemHistoryResponse(
     Guid Id,
     string ActionPerformed,
+    string ChangedValue,
     DateTime ActionPerformedAt);
 
 public enum ActionPerformed

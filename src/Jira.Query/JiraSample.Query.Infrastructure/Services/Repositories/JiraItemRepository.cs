@@ -57,7 +57,7 @@ public class JiraItemRepository : IJiraItemRepository
         item.Description = jiraItem.Description ?? item.Description;
         item.Asignee = jiraItem.Asignee ?? item.Asignee;
         item.ItemType = jiraItem.ItemType == JiraItemType.None ? item.ItemType : jiraItem.ItemType;
-        item.Status = jiraItem.Status == JiraItemStatus.None ? item.Status : jiraItem.Status;
+        item.ItemStatus = jiraItem.ItemStatus == JiraItemStatus.None ? item.ItemStatus : jiraItem.ItemStatus;
         item.ParentId = jiraItem.ParentId ?? item.ParentId;
         item.UpdatedDateTime = jiraItem.UpdatedDateTime;
 

@@ -29,7 +29,14 @@ namespace JiraSample.Query.Api.Controllers
                 item => new GetJiraItemResponse(
                     item.Id,
                     item.Name,
-                    item.Description))
+                    item.Description,
+                    item.ItemType.ToString(),
+                    item.ItemStatus.ToString(),
+                    item.Asignee,
+                    item.Author,
+                    item.ParentId.ToString(),
+                    item.CreatedDateTime,
+                    item.UpdatedDateTime))
                 .ToList());
 
             return Ok(GetJiraItemsResponse);
@@ -40,7 +47,17 @@ namespace JiraSample.Query.Api.Controllers
         {
             var result = await _sender.Send(new GetJiraItemQuery(Guid.Parse(id)));
 
-            GetJiraItemResponse GetJiraItem = new GetJiraItemResponse(result.Id, result.Name, result.Description);
+            GetJiraItemResponse GetJiraItem = new(
+                result.Id,
+                result.Name,
+                result.Description,
+                result.ItemType.ToString(),
+                result.ItemStatus.ToString(),
+                result.Asignee,
+                result.Author,
+                result.ParentId.ToString(),
+                result.CreatedDateTime,
+                result.UpdatedDateTime);
 
             return Ok(GetJiraItem);
         }
@@ -54,6 +71,7 @@ namespace JiraSample.Query.Api.Controllers
                 item => new JiraItemHistoryResponse(
                     item.JiraItemId,
                     item.ActionPerformed,
+                    item.ChangedValue,
                     item.ActionPerformedAt))
                 .ToList());
 

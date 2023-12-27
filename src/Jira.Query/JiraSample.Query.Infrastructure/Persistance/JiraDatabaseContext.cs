@@ -24,7 +24,7 @@ public class JiraDatabaseContext : DbContext
         modelBuilder.Entity<JiraItemEntity>().Property(x => x.Author).IsRequired().HasMaxLength(50);
         modelBuilder.Entity<JiraItemEntity>().Property(x => x.Asignee).IsRequired(false).HasMaxLength(50);
         modelBuilder.Entity<JiraItemEntity>().Property(x => x.ParentId).IsRequired(false);
-        modelBuilder.Entity<JiraItemEntity>().Property(x => x.Status).HasConversion<int>().IsRequired();
+        modelBuilder.Entity<JiraItemEntity>().Property(x => x.ItemStatus).HasConversion<int>().IsRequired();
         modelBuilder.Entity<JiraItemEntity>().Property(x => x.ItemType).HasConversion<int>().IsRequired();
         
 

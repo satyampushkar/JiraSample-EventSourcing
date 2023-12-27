@@ -17,7 +17,7 @@ public class JiraItemAggregate : AggregateRoot
     public string Author { get; private set; }
     public string Asignee { get; private set; }
     public Guid? ParentId { get; private set; } = null;
-    public JiraItemStatus Status { get; private set; } = JiraItemStatus.ToDo;
+    public JiraItemStatus ItemStatus { get; private set; } = JiraItemStatus.ToDo;
     public List<Guid> Children { get; private set; } = new();
     public DateTime CreatedDateTime { get; private set; }
     public DateTime UpdatedDateTime { get; private set; }
@@ -38,7 +38,7 @@ public class JiraItemAggregate : AggregateRoot
             Author = author,
             Asignee = assignee, 
             ParentId = parentId,
-            Status = ItemStatus.ToDo,
+            Status = Common.Enums.ItemStatus.ToDo,
             CreatedDateTime = DateTime.UtcNow
     });
     }
@@ -51,7 +51,7 @@ public class JiraItemAggregate : AggregateRoot
         ItemType = new JiraItemType(jiraItemCreatedEvent.ItemType.Id, jiraItemCreatedEvent.ItemType.Name);
         Author = jiraItemCreatedEvent.Author;
         ParentId = jiraItemCreatedEvent.ParentId;
-        Status = new JiraItemStatus(jiraItemCreatedEvent.Status.Id, jiraItemCreatedEvent.Status.Name);
+        ItemStatus = new JiraItemStatus(jiraItemCreatedEvent.Status.Id, jiraItemCreatedEvent.Status.Name);
         CreatedDateTime = jiraItemCreatedEvent.CreatedDateTime;
     }
 
@@ -79,7 +79,7 @@ public class JiraItemAggregate : AggregateRoot
         ItemType = new JiraItemType(jiraItemUpdatedEvent.ItemType.Id, jiraItemUpdatedEvent.ItemType.Name);
         Asignee = jiraItemUpdatedEvent.Asignee;
         ParentId = jiraItemUpdatedEvent.ParentId;
-        Status = new JiraItemStatus(jiraItemUpdatedEvent.Status.Id, jiraItemUpdatedEvent.Status.Name);
+        ItemStatus = new JiraItemStatus(jiraItemUpdatedEvent.Status.Id, jiraItemUpdatedEvent.Status.Name);
         UpdatedDateTime = jiraItemUpdatedEvent.UpdatedDateTime;
     }
 
@@ -169,7 +169,7 @@ public class JiraItemAggregate : AggregateRoot
     public void Apply(JiraItemStatusUpdatedEvent jiraItemStatusUpdatedEvent)
     {
         _id = jiraItemStatusUpdatedEvent.Id;
-        Status = new JiraItemStatus(jiraItemStatusUpdatedEvent.Status.Id, jiraItemStatusUpdatedEvent.Status.Name);
+        ItemStatus = new JiraItemStatus(jiraItemStatusUpdatedEvent.Status.Id, jiraItemStatusUpdatedEvent.Status.Name);
         UpdatedDateTime = jiraItemStatusUpdatedEvent.UpdatedDateTime;
     }
 

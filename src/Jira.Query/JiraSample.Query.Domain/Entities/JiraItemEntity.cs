@@ -11,7 +11,7 @@ public class JiraItemEntity
     public string Author { get;  set; }
     public string Asignee { get;  set; }
     public Guid? ParentId { get;  set; } = null;
-    public JiraItemStatus Status { get;  set; }
+    public JiraItemStatus ItemStatus { get;  set; }
     //public List<Guid> Children { get;  set; } 
     public DateTime CreatedDateTime { get;  set; }
     public DateTime UpdatedDateTime { get;  set; }
