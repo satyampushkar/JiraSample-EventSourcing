@@ -9,6 +9,17 @@
     }
   },
   "profiles": {
+    "jiraQueryApi": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      //"launchBrowser": true,
+      //"launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5002",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KAFKA_TOPIC": "Jira_App_Events"
+      }
+    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
