@@ -2,12 +2,14 @@
 using JiraSample.Auth.Application.Queries.Login;
 using JiraSample.Auth.Dto;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JiraSample.Auth.Controllers;
 
 [Route("api/auth")]
 [ApiController]
+[EnableCors("AllowWebAppAuthRequests")]
 public class AuthenticationController : ControllerBase
 {
     private readonly ISender _sender;

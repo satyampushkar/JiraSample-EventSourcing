@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.ApiGateway", "src\ApiGateway\JiraSample.ApiGateway\JiraSample.ApiGateway.csproj", "{8CA035F8-9827-4363-83C4-216CF8C52CF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraSample.Auth", "src\Jira.Common\JiraSample.Auth\JiraSample.Auth.csproj", "{81719157-8C3B-478D-A584-250A5C9DBCB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JiraSample.Auth", "src\Jira.Common\JiraSample.Auth\JiraSample.Auth.csproj", "{81719157-8C3B-478D-A584-250A5C9DBCB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

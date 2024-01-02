@@ -2,28 +2,38 @@ import React, { Component, useState } from 'react';
 import axios from 'axios'; 
 import './LoginSignup.css'
 import SessionManager from "./SessionManager";
+import Home from "../Homepage/Home"
+import { useNavigate } from "react-router-dom";
 
 import user_icon from '../Assets/person.png'
 import email_icon from '../Assets/email.png'
 import password_icon from '../Assets/password.png'
 
-const LoginSignup = (props) => {
+const LoginSignup = () => {
 
-    const apiUrl = "";
+    const baseUrl = "https://localhost:7187/api";
 
+    const navigate = useNavigate();
     const [action, setAction] = useState("Sign Up");
     const [data, setdata] = useState({ Name: '', Email: '', Password: '' }) 
 
     async function RegisterUser(){
         let postData = { Name: data.Name, Email: data.Email, Password: data.Password }
-        axios.post(apiUrl, postData)  
+        axios.post(baseUrl + "/auth/register", postData)  
         .then((response) => { 
-            console.log(response.data);  
-            if (response.data.Status == 'Invalid')  
-                alert('Invalid User');  
-            else  
-                SessionManager.setUserSession(response.Email, response.token)
-                props.history.push('/Home')  
+            console.log(response);  
+            debugger;          
+            if (response.status === 201) 
+            {
+                console.log(response?.data);  
+                SessionManager.setUserSession(response.data.email, response.data.token)
+                navigate("/home");
+            }                 
+            else 
+            {
+                alert('Invalid User'); 
+                navigate("/invalidLogin");
+            }
         })
         .catch(error => console.log(error));  
 
@@ -31,14 +41,20 @@ const LoginSignup = (props) => {
 
     async function LoginUser(){
         let postData = { Email: data.Email, Password: data.Password }
-        axios.post(apiUrl, postData)  
+        axios.post(baseUrl + "/auth/login", postData)  
         .then((response) => { 
-            console.log(response.data);  
-            if (response.data.Status == 'Invalid')  
-                alert('Invalid User');  
-            else  
-                SessionManager.setUserSession(response.Email, response.token)
-                props.history.push('/Home')  
+            console.log(response);  
+            if (response.status === 200) 
+            {
+                console.log(response?.data);  
+                SessionManager.setUserSession(response.data.email, response.data.token)
+                navigate("/home");
+            }                 
+            else 
+            {
+                alert('Invalid User'); 
+                navigate("/invalidLogin");
+            }
         })
         .catch(error => console.log(error)); 
     }
