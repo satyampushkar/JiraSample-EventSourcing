@@ -8,7 +8,7 @@ import './Home.css'
 const Home = () => {
 
     const navigate = useNavigate();
-    const baseUrl = "https://localhost:5003/api/jira";
+    const baseUrl = "https://localhost:5001/jira";
     const [jiraItems, setItems] = useState([]);
 
     // Fetch users on component mount
@@ -21,7 +21,7 @@ const Home = () => {
         axios.get(baseUrl + "/items", { headers: {'Authorization': 'Bearer '+ SessionManager.getToken()}})  
         .then((response) => { 
             console.log(response);  
-            debugger;          
+            //debugger;          
             if (response.status === 200) 
             {
                 console.log(response?.data);
@@ -30,11 +30,22 @@ const Home = () => {
             else 
             {
                 alert('Error in getting data'); 
-                navigate("/notFoundPage");
+                navigate("/error");
             }
         })
-        .catch(error => console.log(error));         
+        .catch(error => {
+            console.log(error); 
+            navigate("/error");
+        });         
     };
+
+    const viewItemDetails = (jiraItemIid) => {
+        navigate("/item/"+ jiraItemIid)
+    }
+
+    const addNewItem = () => {
+        navigate("/item/add");
+    }
 
     // const [authenticated, setauthenticated] = useState(null);
 
@@ -50,6 +61,9 @@ const Home = () => {
         return (
             <div className='homePageContainer'>
                 <h2>All Jira Items:</h2>
+                <div>
+                    <button onClick = {() => addNewItem()}>Add New Item</button>
+                </div>
                 <table className="table table-striped" aria-labelledby="tableLabel">
                     <thead>
                     <tr>
@@ -63,7 +77,7 @@ const Home = () => {
                     </thead>
                     <tbody>
                     {jiraItems.map(jiraItem =>
-                        <tr key={jiraItem.id}>
+                        <tr key={jiraItem.id} onClick={() => viewItemDetails(jiraItem.id)} style={{ cursor: 'pointer' }}>
                             <td>{jiraItem.name}</td>
                             <td>{jiraItem.description}</td>
                             <td>{jiraItem.itemType}</td>

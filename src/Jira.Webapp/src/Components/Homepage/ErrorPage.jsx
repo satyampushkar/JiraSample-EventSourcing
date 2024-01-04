@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-const Home = () => {
+const ErrorPage = () => {
 
     return(
         <div className='homePageContainer'>
-            <p>This page is not found!</p>
+            <p>An error encountered while processing the request!</p>
         </div>
     )
 }
 
-export default Home;
+export default ErrorPage;

@@ -25,7 +25,7 @@ namespace JiraSample.Api.Controllers
             _sender = sender;
         }
 
-        [HttpPost("/item")]
+        [HttpPost("item")]
         public async Task<IActionResult> AddJiraItem(CreateJiraItemRequest request)
         {
             var result = await _sender.Send(new CreateJiraItemCommand(request.Name,
@@ -40,7 +40,7 @@ namespace JiraSample.Api.Controllers
             return Created(nameof(AddJiraItem), createJiraItemResponse);
         }
 
-        [HttpPut("/item/{jiraId}")]
+        [HttpPut("item/{jiraId}")]
         public async Task<IActionResult> UpdateJiraItem(string jiraId, UpdateJiraItemRequest request)
         {
             await _sender.Send(new UpdateJiraItemCommand(Guid.Parse(jiraId),
@@ -54,7 +54,7 @@ namespace JiraSample.Api.Controllers
             return NoContent();
         }
 
-        [HttpPatch("/item/{jiraId}")]
+        [HttpPatch("item/{jiraId}")]
         public async Task<IActionResult> PatchJiraItem(string jiraId, JsonPatchDocument request)
         {
             await _sender.Send(new PatchJiraItemCommand(Guid.Parse(jiraId), request));

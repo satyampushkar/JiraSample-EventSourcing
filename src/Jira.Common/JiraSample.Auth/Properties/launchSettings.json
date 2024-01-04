@@ -9,6 +9,17 @@
     }
   },
   "profiles": {
+    "jiraAuthApi": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      //"launchBrowser": true,
+      //"launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5004",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KAFKA_TOPIC": "Jira_App_Events"
+      }
+    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,

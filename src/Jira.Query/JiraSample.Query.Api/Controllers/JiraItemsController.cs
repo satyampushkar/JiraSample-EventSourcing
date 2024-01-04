@@ -4,7 +4,6 @@ using JiraSample.Query.Application.Queries.GetJiraItem;
 using JiraSample.Query.Application.Queries.GetJiraItemHistory;
 using JiraSample.Query.Application.Queries.GetJiraItems;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JiraSample.Query.Api.Controllers
@@ -20,7 +19,7 @@ namespace JiraSample.Query.Api.Controllers
             _sender = sender;
         }
 
-        [HttpGet("/items")]
+        [HttpGet("items")]
         public async Task<IActionResult> GetJiraItems()
         {
             var result = await _sender.Send(new GetJiraItemsQuery());
@@ -42,7 +41,7 @@ namespace JiraSample.Query.Api.Controllers
             return Ok(GetJiraItemsResponse);
         }
 
-        [HttpGet("/item/{id}")]
+        [HttpGet("item/{id}")]
         public async Task<IActionResult> GetJiraItem(string id)
         {
             var result = await _sender.Send(new GetJiraItemQuery(Guid.Parse(id)));
@@ -62,14 +61,14 @@ namespace JiraSample.Query.Api.Controllers
             return Ok(GetJiraItem);
         }
 
-        [HttpGet("/item/{id}/history")]
+        [HttpGet("item/{id}/history")]
         public async Task<IActionResult> GetJiraItemHistory(string id)
         {
             var result = await _sender.Send(new GetJiraItemHistoryQuery(Guid.Parse(id)));
 
             GetJiraItemHistoryResponse GetJiraItemHistoryResponse = new(result.Select(
                 item => new JiraItemHistoryResponse(
-                    item.JiraItemId,
+                    item.Id,
                     item.ActionPerformed,
                     item.ChangedValue,
                     item.ActionPerformedAt))

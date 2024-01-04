@@ -3,7 +3,7 @@
 public record GetJiraItemHistoryResponse(List<JiraItemHistoryResponse> JiraItemHistoryResponses);
 
 public record JiraItemHistoryResponse(
-    Guid Id,
+    int Id,
     string ActionPerformed,
     string ChangedValue,
     DateTime ActionPerformedAt);
