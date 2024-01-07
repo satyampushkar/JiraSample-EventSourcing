@@ -24,6 +24,9 @@ ToDo List:
 * How to run Guide
 * Docker Support (one docker compose to run all dependencies)
 * Add a frontend ui for demo purpose [InProgress]
+  * Basic Crud based Ui is done
+  * Proper css, layout, navbar etc to be added
+  * logout to be added 
 * Add
   * Authentication [Created a demo auth/identity service which stores user/token in in-memory db] [done]
   * Mapping(Mapster)
