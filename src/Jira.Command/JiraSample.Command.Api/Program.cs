@@ -2,6 +2,9 @@ using Confluent.Kafka;
 using JiraSample.Application;
 using JiraSample.Infrastructure;
 using JiraSample.Infrastructure.Configurations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +19,18 @@ builder.Services.Configure<ProducerConfig>(builder.Configuration.GetSection(name
 builder.Services
     .AddApplication()
     .AddAInfrastructure(builder.Configuration);
+
+builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "JiraSample.Identity.Auth",
+                ValidAudience = "JiraSample.Audience",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MyJiraSampleApplicationIdentityAuthServiceKey9876543210"))
+            });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

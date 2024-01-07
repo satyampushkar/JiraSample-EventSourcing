@@ -6,6 +6,6 @@ public record CreateJiraItemRequest(
     string Name,
     string Description,
     string ItemType,
-    string Author,
+    //string Author,
     string Asignee,
     Guid ParentId);

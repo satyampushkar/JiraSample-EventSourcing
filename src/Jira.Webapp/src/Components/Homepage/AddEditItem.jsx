@@ -1,86 +1,179 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
+import axios from 'axios'; 
+import SessionManager from "../LoginSetup/SessionManager";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const AddEditItem = () => {
 
     const params = useParams();
     const isAddMode = !params.id;
+    
+    const navigate = useNavigate();
+    const baseUrl = "https://localhost:5001/jira";
+
+    const [data, setdata] = useState({ name: '', description: '', itemType: '', asignee: '', itemStatus: '' }) 
+
+    const onSubmit = async () => {
+        if (isAddMode){
+            //debugger; 
+            let postData = { Name: data.name, Description: data.description, itemType: data.itemType, Asignee: data.asignee  }
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ SessionManager.getToken()
+              }
+            axios.post(baseUrl + "/item", postData, { headers: headers})  
+            .then((response) => { 
+                console.log(response);  
+                debugger;          
+                if (response.status === 201) 
+                {
+                    console.log(response?.data);
+                    navigate("/item/"+ response?.data.id);
+                    //setdata(response?.data);
+                    // viewItemDetails(response?.data.id)
+                }                 
+                else 
+                {
+                    alert('Error in getting data'); 
+                    navigate("/notFoundPage");
+                }
+            })
+            .catch(error => {
+                console.log(error); 
+                if(error.response.status === 401){
+                    navigate("/login");
+                }
+                else{
+                    navigate("/error");
+                }
+            }); 
+        }
+        else{
+            let putData = { Name: data.name, Description: data.description, itemType: data.itemType, Asignee: data.asignee, itemStatus: data.itemStatus  }
+            axios.put(baseUrl + "/item/"+ params.id, putData, { headers: {'Authorization': 'Bearer '+ SessionManager.getToken()}})  
+            .then((response) => { 
+                console.log(response);  
+                debugger;          
+                if (response.status === 204) 
+                {
+                    console.log(response?.data);
+                    navigate("/item/"+ params.id)
+                    //setdata(response?.data);
+                    //viewItemDetails(params.id)
+                }                 
+                else 
+                {
+                    alert('Error in getting data'); 
+                    navigate("/notFoundPage");
+                }
+            })
+            .catch(error => {
+                console.log(error); 
+                if(error.response.status === 401){
+                    navigate("/login");
+                }
+                else{
+                    navigate("/error");
+                }
+            });
+        }
+    }
+
+    const onChange = (e) => {  
+        e.persist(); 
+        setdata({ ...data, [e.target.name]: e.target.value });  
+    }
+
+    useEffect(() => {
+        if (!isAddMode) {
+            debugger;
+            axios.get(baseUrl + "/item/" + params.id, { headers: {'Authorization': 'Bearer '+ SessionManager.getToken()}})  
+            .then((response) => { 
+                console.log(response);  
+                //debugger;          
+                if (response.status === 200) 
+                {
+                    console.log(response?.data);
+                    setdata(response?.data);
+                }                 
+                else 
+                {
+                    alert('Error in getting data'); 
+                    navigate("/notFoundPage");
+                }
+            })
+            .catch(error => {
+                console.log(error); 
+                if(error.response.status === 401){
+                    navigate("/login");
+                }
+                else{
+                    navigate("/error");
+                }
+            });               
+        }
+    }, []);
+
+    const onCancel = () => {
+        navigate("/items/");
+    }
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)} onReset={reset} className='homePageContainer'>
+        <div className='homePageContainer'>
             <h1>{isAddMode ? 'Add New Jira Item' : 'Edit Jira Item'}</h1>
             <div className="form-row">
-                <div className="form-group col">
-                    <label>Title</label>
-                    <select name="title" ref={register} className={`form-control ${errors.title ? 'is-invalid' : ''}`}>
-                        <option value=""></option>
-                        <option value="Mr">Mr</option>
-                        <option value="Mrs">Mrs</option>
-                        <option value="Miss">Miss</option>
-                        <option value="Ms">Ms</option>
-                    </select>
-                    <div className="invalid-feedback">{errors.title?.message}</div>
-                </div>
                 <div className="form-group col-5">
-                    <label>First Name</label>
-                    <input name="firstName" type="text" ref={register} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.firstName?.message}</div>
-                </div>
+                    <label>Name</label>
+                    <input name="name" type="text" value={data.name} onChange={onChange}  />
+                </div>                
+            </div>
+            <div className="form-row">
                 <div className="form-group col-5">
-                    <label>Last Name</label>
-                    <input name="lastName" type="text" ref={register} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.lastName?.message}</div>
+                    <label>Description</label>
+                    <input name="description" type="text" value={data.description} onChange={onChange}  />
                 </div>
             </div>
             <div className="form-row">
-                <div className="form-group col-7">
-                    <label>Email</label>
-                    <input name="email" type="text" ref={register} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.email?.message}</div>
-                </div>
                 <div className="form-group col">
-                    <label>Role</label>
-                    <select name="role" ref={register} className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
-                        <option value=""></option>
-                        <option value="User">User</option>
-                        <option value="Admin">Admin</option>
+                    <label>Type</label>
+                    <select name="itemType" value={data.itemType} onChange={onChange} >
+                        <option value="Epic">Epic</option>
+                        <option value="Story">Story</option>
+                        <option value="Task">Task</option>
+                        <option value="SubTask">SubTask</option>
+                        <option value="Bug">Bug</option>
                     </select>
-                    <div className="invalid-feedback">{errors.role?.message}</div>
+                </div>            
+            </div>
+            <div className="form-row">
+                <div className="form-group col-5">
+                    <label>Asignee</label>
+                    <input name="asignee" type="text"  value={data.asignee} onChange={onChange} />
                 </div>
             </div>
             {!isAddMode &&
-                <div>
-                    <h3 className="pt-3">Change Password</h3>
-                    <p>Leave blank to keep the same password</p>
+                <div className="form-row">
+                    <div className="form-group col">
+                        <label>Status</label>
+                        <select name="itemStatus" value={data.itemStatus} onChange={onChange} >
+                            <option value="ToDo">ToDo</option>
+                            <option value="InProgress">InProgress</option>
+                            <option value="InTesting">InTesting</option>
+                            <option value="InReview">InReview</option>
+                            <option value="Done">Done</option>
+                            <option value="Blocked">Blocked</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>            
                 </div>
             }
-            <div className="form-row">
-                <div className="form-group col">
-                    <label>
-                        Password
-                        {!isAddMode &&
-                            (!showPassword
-                                ? <span> - <a onClick={() => setShowPassword(!showPassword)} className="text-primary">Show</a></span>
-                                : <em> - {user.password}</em>
-                            )
-                        }
-                    </label>
-                    <input name="password" type="password" ref={register} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.password?.message}</div>
-                </div>
-                <div className="form-group col">
-                    <label>Confirm Password</label>
-                    <input name="confirmPassword" type="password" ref={register} className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
-                </div>
-            </div>
             <div className="form-group">
-                <button type="submit" disabled={formState.isSubmitting} className="btn btn-primary">
-                    {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                    Save
-                </button>
-                <Link to={isAddMode ? '.' : '..'} className="btn btn-link">Cancel</Link>
+                <button type="submit" className="btn btn-primary" onClick={() => onSubmit() }> Save </button>
+                <button type="submit" className="btn btn-primary" onClick={() => onCancel() }> Cancel </button>
             </div>
-        </form>
+        </div>
     )
 }
 

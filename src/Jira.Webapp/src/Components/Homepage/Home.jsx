@@ -34,8 +34,14 @@ const Home = () => {
             }
         })
         .catch(error => {
+            debugger;
             console.log(error); 
-            navigate("/error");
+            if(error.response.status === 401){
+                navigate("/login");
+            }
+            else{
+                navigate("/error");
+            }
         });         
     };
 
@@ -45,6 +51,11 @@ const Home = () => {
 
     const addNewItem = () => {
         navigate("/item/add");
+    }
+
+    const editItem = (jiraItemId) => {
+        debugger;
+        navigate("/item/edit/" + jiraItemId);
     }
 
     // const [authenticated, setauthenticated] = useState(null);
@@ -77,13 +88,15 @@ const Home = () => {
                     </thead>
                     <tbody>
                     {jiraItems.map(jiraItem =>
-                        <tr key={jiraItem.id} onClick={() => viewItemDetails(jiraItem.id)} style={{ cursor: 'pointer' }}>
+                        <tr key={jiraItem.id} >
                             <td>{jiraItem.name}</td>
                             <td>{jiraItem.description}</td>
                             <td>{jiraItem.itemType}</td>
                             <td>{jiraItem.itemStatus}</td>
                             <td>{jiraItem.asignee}</td>
                             <td>{jiraItem.author}</td>
+                            <td><button onClick={() => viewItemDetails(jiraItem.id)} style={{ cursor: 'pointer' }}>View Item</button></td>
+                            <td><button onClick = {() => editItem(jiraItem.id)} style={{ cursor: 'pointer' }}>Edit Item</button></td>
                         </tr>
                     )}
                     </tbody>

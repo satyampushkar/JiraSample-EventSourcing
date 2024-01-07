@@ -15,8 +15,10 @@ function App() {
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/items" element={<Home />} />
+        <Route path="/item/edit/:id" element={<AddEditItem />} />
         <Route path="/item/:id" element={<ItemDetails />} />
         <Route path="/item/add" element={<AddEditItem />} />
+        
         <Route path="/error" element={<ErrorPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

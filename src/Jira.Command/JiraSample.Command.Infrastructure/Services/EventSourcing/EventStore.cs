@@ -23,7 +23,7 @@ public class EventStore : IEventStore
         var eventStream = await _eventStoreRepository.FindByAggregateId(aggregateId);
 
         if (eventStream == null || !eventStream.Any())
-            throw new AggregateNotFoundException("Incorrect post ID provided!");
+            throw new AggregateNotFoundException("Incorrect Jira ID provided!");
 
         return eventStream.OrderBy(x => x.Version).Select(x => x.EventData).ToList();
     }

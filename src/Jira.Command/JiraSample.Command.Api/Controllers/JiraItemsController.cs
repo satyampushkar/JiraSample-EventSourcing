@@ -7,15 +7,18 @@ using JiraSample.Common.Contracts.Responses;
 using JiraSample.Common.Enums;
 using JiraSample.Domain.JiraItem.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace JiraSample.Api.Controllers
 {
     [Route("api/jira")]
     [ApiController]
+    [Authorize]
     public class JiraItemsController : ControllerBase
     {
         private readonly ISender _sender;
@@ -28,10 +31,12 @@ namespace JiraSample.Api.Controllers
         [HttpPost("item")]
         public async Task<IActionResult> AddJiraItem(CreateJiraItemRequest request)
         {
+            var authorName = User.FindFirst(ClaimTypes.GivenName)?.Value;
+
             var result = await _sender.Send(new CreateJiraItemCommand(request.Name,
                                                                       request.Description,
                                                                       JiraItemType.FromName(request.ItemType),
-                                                                      request.Author,
+                                                                      authorName,
                                                                       request.Asignee,
                                                                       request.ParentId));
 

@@ -37,7 +37,12 @@ const ItemDetails = () => {
         })
         .catch(error => {
             console.log(error); 
-            navigate("/error");
+            if(error.response.status === 401){
+                navigate("/login");
+            }
+            else{
+                navigate("/error");
+            }
         });      
     };
 
@@ -59,9 +64,18 @@ const ItemDetails = () => {
         })
         .catch(error => {
             console.log(error); 
-            navigate("/error");
+            if(error.response.status === 401){
+                navigate("/login");
+            }
+            else{
+                navigate("/error");
+            }
         });        
     };
+
+    const gotoItemsPage = () => {
+        navigate("/items");
+    }
 
 
     if (SessionManager.getToken()){
@@ -74,6 +88,9 @@ const ItemDetails = () => {
                 <p>Status: {jiraItem.itemStatus}</p>
                 <p>Asignee: {jiraItem.asignee}</p>
                 <p>Author: {jiraItem.author}</p>
+                <br />
+                <br />
+                <button onClick={() => gotoItemsPage()}>GoTo All Items</button>
                 <br />
                 <br />
                 <button onClick={() => fetchitemHistory()}>Show History</button>
