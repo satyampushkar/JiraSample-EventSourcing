@@ -11,7 +11,7 @@ import password_icon from '../Assets/password.png'
 
 const LoginSignup = () => {
 
-    const baseUrl = "https://localhost:5001";
+    const baseUrl = "http://localhost:5001";
 
     const navigate = useNavigate();
     const [action, setAction] = useState("Sign Up");

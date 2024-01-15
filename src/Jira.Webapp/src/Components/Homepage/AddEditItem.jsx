@@ -11,7 +11,7 @@ const AddEditItem = () => {
     const isAddMode = !params.id;
     
     const navigate = useNavigate();
-    const baseUrl = "https://localhost:5001/jira";
+    const baseUrl = "http://localhost:5001/jira";
 
     const [data, setdata] = useState({ name: '', description: '', itemType: '', asignee: '', itemStatus: '' }) 
 

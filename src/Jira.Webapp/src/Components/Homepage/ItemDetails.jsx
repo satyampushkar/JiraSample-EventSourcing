@@ -9,7 +9,7 @@ const ItemDetails = () => {
 
     const params = useParams();
     const navigate = useNavigate();
-    const baseUrl = "https://localhost:5001/jira";
+    const baseUrl = "http://localhost:5001/jira";
     const [jiraItem, setItem] = useState([]);
     const [jiraItemHistory, setItemHistory] = useState([]);
 

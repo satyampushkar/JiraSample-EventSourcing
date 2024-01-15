@@ -8,7 +8,7 @@ import './Home.css'
 const Home = () => {
 
     const navigate = useNavigate();
-    const baseUrl = "https://localhost:5001/jira";
+    const baseUrl = "http://localhost:5001/jira";
     const [jiraItems, setItems] = useState([]);
 
     // Fetch users on component mount

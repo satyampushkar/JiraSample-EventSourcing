@@ -11,28 +11,122 @@ services:
       - "zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+
   kafka:
     image: docker.io/bitnami/kafka:3.5
     container_name: kafka
     ports:
       - "9092:9092"
+      # - "9094:9094"
     restart: always
     volumes:
       - "kafka_data:/bitnami"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      - KAFKA_CFG_KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
     depends_on:
       - zookeeper
+
+  sql-server-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    hostname: "sql-server-db"
+    labels:
+      NAME: "sql-server-db"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Password123"
+      ACCEPT_EULA: "Y"
+      HOMEBREW_NO_ENV_FILTERING: 1
+
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27018:27017'
+    volumes:
+      - dbdata6:/data/db
       
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./src/ApiGateway/JiraSample.ApiGateway/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ReverseProxy__Clusters__auth-cluster__Destinations__destination1__Address=http://auth-service:8080/
+      - ReverseProxy__Clusters__command-cluster__Destinations__destination1__Address=http://command-service:8080/
+      - ReverseProxy__Clusters__query-cluster__Destinations__destination1__Address=http://query-service:8080/
+    ports: 
+      - "5001:8080"
+      - "5051:8081"
+    restart: on-failure:15 # always
+    # depends_on:
+    #   - replace
+
+  command-service:
+    build:
+      context: .
+      dockerfile: ./src/Jira.Command/JiraSample.Command.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=Jira_App_Events
+      - ProducerConfig__BootstrapServers=kafka:9092
+      - MongoDbConfig__ConnectionString=mongodb://host.docker.internal:27018
+    ports: 
+      - "5002:8080"
+      - "5052:8081"  
+    restart: on-failure:15 # always
+    depends_on:
+      - kafka
+      - mongodb
+
+  query-service:
+    build:
+      context: .
+      dockerfile: ./src/Jira.Query/JiraSample.Query.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=Jira_App_Events
+      - ConsumerConfig__BootstrapServers=kafka:9092
+      - ConnectionStrings__JiraDatabaseConnection=Server=sql-server-db;Database=JiraDatabase;User Id=sa;Password=Password123;TrustServerCertificate=true
+    ports: 
+      - "5003:8080"
+      - "5053:8081"  
+    restart: on-failure:15 # always
+    depends_on:
+      - kafka
+      - sql-server-db
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: ./src/Jira.Common/JiraSample.Auth/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+      - "5004:8080"
+      - "5054:8081"  
+    restart: on-failure:15 # always  
+
+  ui-app:
+    build:
+      context: ./src/Jira.Webapp
+      dockerfile: Dockerfile
+    # environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+      - "5005:3000"
+      # - "5054:8081"  
+    restart: on-failure:15 # always   
+
 volumes:
   zookeeper_data:
     driver: local
   kafka_data:
     driver: local
+  dbdata6:
    
 networks:
   default:    
