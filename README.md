@@ -22,7 +22,10 @@ This project
 --------------------------------------------------
 ToDo List:
 * How to run Guide
-* Docker Support (one docker compose to run all dependencies)
+  * Run `docker compose up -d` in root folder to run all the services
+  * Web UI can be accessed at `http://localhost:5005/`
+  * Auth, Command and query service can be found at ports 5004, 5002 & 5003
+* Docker Support (one docker compose to run all dependencies) [Done]
 * Add a frontend ui for demo purpose [InProgress]
   * Basic Crud based Ui is done
   * Proper css, layout, navbar etc to be added
